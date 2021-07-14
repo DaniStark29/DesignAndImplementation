@@ -1,0 +1,32 @@
+<ion-app>
+    <ion-header translucent>
+        <ion-toolbar>
+            <ion-buttons slot="primary">
+                <ion-button routerLink="/movie/busquedapeliculas">
+                    <ion-icon slot="icon-only" name="search"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Películas</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-content fullscreen>
+        <ion-list inset="false" lines="none" mode="md" *ngIf="peliculas != null">
+            <ion-item *ngFor="let pelicula of peliculas;">
+                <ion-avatar slot="start" *ngIf="pelicula.show.image.original != null">
+                    <img [src]="pelicula.show.image.original">
+                </ion-avatar>
+                <ion-label>
+                    <h2>{{pelicula.show.name}}</h2>
+                    <h3>Idioma: {{pelicula.show.language}}</h3>
+                    <p>Estreno: {{pelicula.show.premiered}}.</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+
+        <ion-infinite-scroll threshold="150px" (ionInfinite)="loadData($event)">
+            <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+            </ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+    </ion-content>
+</ion-app>
